@@ -1,0 +1,424 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CMakeSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows-Initialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CMakeCCompiler.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/WindowsPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/MSVC-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/MSVC.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows-MSVC-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows-MSVC.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/CMakeFiles/3.29.5-msvc4/CMakeRCCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeRCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/MSVC.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows-MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/Platform/Windows-MSVC.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"path" : "cmake/Modules/PreventInSourceBuilds.cmake"
+		},
+		{
+			"path" : "cmake/Modules/CocosBuildSet.cmake"
+		},
+		{
+			"path" : "cmake/Modules/CocosBuildHelpers.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "C:/Program Files/Microsoft Visual Studio/2022/Community/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.29/Modules/CMakeParseArguments.cmake"
+		},
+		{
+			"path" : "cmake/Modules/CocosConfigDefine.cmake"
+		},
+		{
+			"path" : "cmake/Modules/CocosConfigDepend.cmake"
+		},
+		{
+			"path" : "cocos/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/2d/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/3d/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/platform/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/physics/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/physics3d/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/math/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/navmesh/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/renderer/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/vr/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/base/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/deprecated/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/ui/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/network/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/audio/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/storage/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/editor-support/cocosbuilder/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/editor-support/cocostudio/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/editor-support/spine/CMakeLists.txt"
+		},
+		{
+			"path" : "extensions/CMakeLists.txt"
+		},
+		{
+			"path" : "external/CMakeLists.txt"
+		},
+		{
+			"path" : "external/Box2D/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/chipmunk/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/freetype2/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/recast/CMakeLists.txt"
+		},
+		{
+			"path" : "external/bullet/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/jpeg/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/openssl/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/tiff/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/webp/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/websockets/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/tinyxml2/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/xxhash/CMakeLists.txt"
+		},
+		{
+			"path" : "external/xxtea/CMakeLists.txt"
+		},
+		{
+			"path" : "external/clipper/CMakeLists.txt"
+		},
+		{
+			"path" : "external/edtaa3func/CMakeLists.txt"
+		},
+		{
+			"path" : "external/ConvertUTF/CMakeLists.txt"
+		},
+		{
+			"path" : "external/poly2tri/CMakeLists.txt"
+		},
+		{
+			"path" : "external/md5/CMakeLists.txt"
+		},
+		{
+			"path" : "external/uv/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/spidermonkey/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/lua/luajit/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/lua/tolua/CMakeLists.txt"
+		},
+		{
+			"path" : "external/lua/luasocket/CMakeLists.txt"
+		},
+		{
+			"path" : "external/curl/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/png/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/sqlite3/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/win32-specific/gles/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/win32-specific/icon/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/win32-specific/MP3Decoder/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/win32-specific/OggDecoder/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/win32-specific/OpenalSoft/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/glfw3/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/zlib/CMakeLists.txt"
+		},
+		{
+			"path" : "external/cmake/CocosExternalConfig.cmake"
+		},
+		{
+			"path" : "external/unzip/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/scripting/lua-bindings/CMakeLists.txt"
+		},
+		{
+			"path" : "cocos/scripting/js-bindings/CMakeLists.txt"
+		},
+		{
+			"path" : "tests/cpp-tests/CMakeLists.txt"
+		},
+		{
+			"path" : "tests/js-tests/project/CMakeLists.txt"
+		},
+		{
+			"path" : "tests/lua-tests/project/CMakeLists.txt"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "D:/cocos/cocos2dx/out/build/x64-Debug",
+		"source" : "D:/cocos/cocos2dx"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 0
+	}
+}

@@ -1,0 +1,854 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "bin/js-tests/js-tests.exe"
+		},
+		{
+			"path" : "bin/js-tests/js-tests.pdb"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries",
+			"set_property",
+			"use_cocos2dx_libs_depend",
+			"target_include_directories"
+		],
+		"files" : 
+		[
+			"tests/js-tests/project/CMakeLists.txt",
+			"cocos/scripting/js-bindings/CMakeLists.txt",
+			"cocos/CMakeLists.txt",
+			"external/CMakeLists.txt",
+			"external/win32-specific/OggDecoder/CMakeLists.txt",
+			"cmake/Modules/CocosConfigDepend.cmake"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 140,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 149,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 157,
+				"parent" : 3
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 124,
+				"parent" : 5
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 29,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 26,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 70,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 115,
+				"parent" : 7
+			},
+			{
+				"file" : 4
+			},
+			{
+				"command" : 2,
+				"file" : 4,
+				"line" : 22,
+				"parent" : 12
+			},
+			{
+				"command" : 2,
+				"file" : 4,
+				"line" : 28,
+				"parent" : 12
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 127,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 134,
+				"parent" : 7
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 141,
+				"parent" : 7
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 134,
+				"parent" : 5
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 5,
+				"line" : 101,
+				"parent" : 18
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 161,
+				"parent" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 0,
+				"line" : 150,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++14"
+				},
+				{
+					"backtrace" : 2,
+					"fragment" : "/MP"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 2,
+					"define" : "CC_STATIC"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "COCOS2D_DEBUG=1"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "LWS_WITH_LIBUV"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "UNICODE"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "WIN32"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "_CRT_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "_SCL_SECURE_NO_WARNINGS"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "_UNICODE"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "_WIN32"
+				},
+				{
+					"backtrace" : 2,
+					"define" : "_WINDOWS"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 27,
+					"path" : "D:/cocos/cocos2dx/tests/js-tests/project/Classes"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/scripting/js-bindings/auto"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/scripting/js-bindings/manual"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/extensions"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/platform"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/base"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/editor-support"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/audio/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/cocos/platform/win32"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/recast/.."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/tinyxml2/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/xxhash/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/xxtea/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/clipper/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/edtaa3func/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/ConvertUTF/."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/poly2tri/.."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/md5/.."
+				},
+				{
+					"backtrace" : 2,
+					"path" : "D:/cocos/cocos2dx/external/unzip/."
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/uv/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/Box2D/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/chipmunk/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/freetype2/include/win32/freetype2"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/jpeg/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/webp/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/bullet/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/bullet/include/bullet"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/openssl/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/tiff/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/websockets/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/curl/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/png/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/sqlite3/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/win32-specific/gles/include/OGLES"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/win32-specific/icon/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/win32-specific/MP3Decoder/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/win32-specific/OggDecoder/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/win32-specific/OpenalSoft/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/glfw3/include/win32"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/zlib/../win32-specific/zlib/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "D:/cocos/cocos2dx/external/spidermonkey/include/win32"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				5,
+				6,
+				7,
+				8,
+				9,
+				10
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "ext_unzip::@05a8bf1aba81c1a16e64"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "jscocos2d::@ba0f305d4431d7d2085c"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_md5::@82bef7d6fa8c2aa61808"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_edtaa3func::@f3d42e550923b89477b0"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_poly2tri::@ce0bfd23a4070be0c5de"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_convertUTF::@205c2f0e44a3b06b9b59"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_xxtea::@95546a4b2abc077b0042"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_xxhash::@11e20b8b9139209a045a"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_tinyxml2::@fd6ab661f4ee25a21ef0"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_clipper::@33abc919e86db66c28b8"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "ext_recast::@49aedbc985f97720d891"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "external::@62470bbe2074d04a1904"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "cocos2d::@b17589fc6237857a1771"
+		}
+	],
+	"id" : "js-tests::@043ab8655458939e55b4",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "/DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "/machine:x64 /debug /INCREMENTAL /subsystem:console /SUBSYSTEM:WINDOWS",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "lib\\jscocos2d.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "lib\\cocos2d.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "lib\\external.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\Box2D\\prebuilt\\win32\\debug\\libbox2d.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\chipmunk\\prebuilt\\win32\\debug-lib\\libchipmunk.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\freetype2\\prebuilt\\win32\\freetype.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_recast.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\jpeg\\prebuilt\\win32\\libjpeg.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\webp\\prebuilt\\win32\\libwebp.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\bullet\\prebuilt\\win32\\debug\\libbullet.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\tiff\\prebuilt\\win32\\libtiff.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\websockets\\prebuilt\\win32\\websockets.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 9,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\uv\\prebuilt\\win32\\uv_a.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\openssl\\prebuilt\\win32\\libssl.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\openssl\\prebuilt\\win32\\libcrypto.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_tinyxml2.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_xxhash.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_xxtea.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_clipper.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_edtaa3func.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_convertUTF.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_poly2tri.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "lib\\ext_md5.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\curl\\prebuilt\\win32\\libcurl.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\png\\prebuilt\\win32\\libpng.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\sqlite3\\libraries\\win32\\sqlite3.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\gles\\prebuilt\\glew32.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\icon\\prebuilt\\libiconv.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\MP3Decoder\\prebuilt\\libmpg123.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\OggDecoder\\prebuilt\\libogg.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\OggDecoder\\prebuilt\\libvorbis.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 14,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\OggDecoder\\prebuilt\\libvorbisfile.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\win32-specific\\OpenalSoft\\prebuilt\\OpenAL32.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 15,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\glfw3\\prebuilt\\win32\\glfw3.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 16,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\zlib\\..\\win32-specific\\zlib\\prebuilt\\libzlib.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 17,
+				"fragment" : "lib\\ext_unzip.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 19,
+				"fragment" : "ws2_32.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 20,
+				"fragment" : "userenv.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 21,
+				"fragment" : "psapi.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 22,
+				"fragment" : "winmm.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 23,
+				"fragment" : "Version.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 24,
+				"fragment" : "Iphlpapi.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 25,
+				"fragment" : "opengl32.lib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 26,
+				"fragment" : "D:\\cocos\\cocos2dx\\external\\spidermonkey\\prebuilt\\win32\\mozjs-33.lib",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "js-tests",
+	"nameOnDisk" : "js-tests.exe",
+	"paths" : 
+	{
+		"build" : "engine/tests/js-tests",
+		"source" : "tests/js-tests/project"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				3,
+				4
+			]
+		},
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				5,
+				6,
+				7,
+				8,
+				9,
+				10
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "tests/js-tests/project/proj.win32/main.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "tests/js-tests/project/proj.win32/resource.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "tests/js-tests/project/Classes/AppDelegate.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "tests/js-tests/project/Classes/js_Effect3D_bindings.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "tests/js-tests/project/Classes/js_DrawNode3D_bindings.h",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "tests/js-tests/project/proj.win32/main.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "tests/js-tests/project/Classes/AppDelegate.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "tests/js-tests/project/Classes/js_DrawNode3D_bindings.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "tests/js-tests/project/Classes/js_Effect3D_bindings.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cocos/scripting/js-bindings/precheader.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "cocos/precheader.cpp",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "EXECUTABLE"
+}
