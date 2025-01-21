@@ -51,11 +51,23 @@ struct particle_point
     float y;
 };
 
+struct particleCollInfo
+{
+    float posx;
+    float posy;
+    float size;
+    float dirX;
+    float dirY;
+    float degreesPerSecond;
+    float deltaRadius;
+    float mass;
+};
+
 class CC_DLL ParticleData
 {
 public:
-    float* posx;
-    float* posy;
+//    float* posx;
+//    float* posy;
     float* startPosX;
     float* startPosY;
 
@@ -69,18 +81,19 @@ public:
     float* deltaColorB;
     float* deltaColorA;
     
-    float* size;
+//    float* size;
     float* deltaSize;
     float* rotation;
     float* deltaRotation;
     float* timeToLive;
-    float* mass;
+    particleCollInfo* collisionInfo;
+//    float* mass;
     unsigned int* atlasIndex;
     
     //! Mode A: gravity, direction, radial accel, tangential accel
     struct{
-        float* dirX;
-        float* dirY;
+//        float* dirX;
+//        float* dirY;
         float* radialAccel;
         float* tangentialAccel;
     } modeA;
@@ -88,9 +101,9 @@ public:
     //! Mode B: radius mode
     struct{
         float* angle;
-        float* degreesPerSecond;
+//        float* degreesPerSecond;
         float* radius;
-        float* deltaRadius;
+//        float* deltaRadius;
     } modeB;
     
     unsigned int maxCount;
@@ -101,8 +114,8 @@ public:
     
     void copyParticle(int p1, int p2)
     {
-        posx[p1] = posx[p2];
-        posy[p1] = posy[p2];
+//        posx[p1] = posx[p2];
+//        posy[p1] = posy[p2];
         startPosX[p1] = startPosX[p2];
         startPosY[p1] = startPosY[p2];
         
@@ -116,7 +129,7 @@ public:
         deltaColorB[p1] = deltaColorB[p2];
         deltaColorA[p1] = deltaColorA[p2];
         
-        size[p1] = size[p2];
+//        size[p1] = size[p2];
         deltaSize[p1] = deltaSize[p2];
         
         rotation[p1] = rotation[p2];
@@ -124,19 +137,20 @@ public:
         
         timeToLive[p1] = timeToLive[p2];
 
-        mass[p1] = mass[p2];
-        
+//        mass[p1] = mass[p2];
+        collisionInfo[p1] = collisionInfo[p2];
+
         atlasIndex[p1] = atlasIndex[p2];
         
-        modeA.dirX[p1] = modeA.dirX[p2];
-        modeA.dirY[p1] = modeA.dirY[p2];
+//        modeA.dirX[p1] = modeA.dirX[p2];
+//        modeA.dirY[p1] = modeA.dirY[p2];
         modeA.radialAccel[p1] = modeA.radialAccel[p2];
         modeA.tangentialAccel[p1] = modeA.tangentialAccel[p2];
         
         modeB.angle[p1] = modeB.angle[p2];
-        modeB.degreesPerSecond[p1] = modeB.degreesPerSecond[p2];
+//        modeB.degreesPerSecond[p1] = modeB.degreesPerSecond[p2];
         modeB.radius[p1] = modeB.radius[p2];
-        modeB.deltaRadius[p1] = modeB.deltaRadius[p2];
+//        modeB.deltaRadius[p1] = modeB.deltaRadius[p2];
         
     }
 };
