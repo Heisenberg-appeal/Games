@@ -109,206 +109,93 @@ inline static float RANDOM_M11(unsigned int *seed) {
     return u.f - 3.0f;
 }
 
-// life cycle of particles
-void particleLifeSystem(flecs::iter& it, size_t i, flecsLife& fl)
+ParticleData::ParticleData()
 {
-    fl.life -= it.delta_time();
-    if (fl.life <= 0)
-    {
-        it.entity(i).destruct();
-    }
+    memset(this, 0, sizeof(ParticleData));
 }
 
-// modeA update
-void modeAUpdateSystem(flecs::iter& it, size_t i, flecsPosition& fp, flecsAccel& fa, flecsDir& fd, flecsYCoordFlipped& fycf)
+bool ParticleData::init(int count)
 {
-//    particle_point tmp, radial = {0.0f, 0.0f}, tangential;
-
-    // radial acceleration
-    particle_point radial = {0.0f, 0.0f};
-    if (fp.position.x || fp.position.y)
-    {
-        normalize_point(fp.position.x, fp.position.y, &radial);
-    }
-    particle_point tangential = radial;
-    radial.x *= fa.radialAccel;
-    radial.y *= fa.radialAccel;
-
-    // tangential acceleration
-    std::swap(tangential.x, tangential.y);
-    tangential.x *= - fa.tangentialAccel;
-    tangential.y *= fa.tangentialAccel;
-
-    // (gravity + radial + tangential) * dt
-    particle_point tmp;
-    tmp.x = radial.x + tangential.x + fa.gravity.x;
-    tmp.y = radial.y + tangential.y + fa.gravity.y;
-    tmp.x *= it.delta_time();
-    tmp.y *= it.delta_time();
-
-    fd.dirX += tmp.x;
-    fd.dirY += tmp.y;
-
-    // this is cocos2d-x v3.0
-    // if (_configName.length()>0 && _yCoordFlipped != -1)
-
-    // this is cocos2d-x v3.0
-    tmp.x = fd.dirX * it.delta_time() * fycf._yCoordFlipped;
-    tmp.y = fd.dirY * it.delta_time() * fycf._yCoordFlipped;
-    fp.position.x += tmp.x;
-    fp.position.y += tmp.y;
+    maxCount = count;
+    
+    posx= (float*)malloc(count * sizeof(float));
+    posy= (float*)malloc(count * sizeof(float));
+    startPosX= (float*)malloc(count * sizeof(float));
+    startPosY= (float*)malloc(count * sizeof(float));
+    colorR= (float*)malloc(count * sizeof(float));
+    colorG= (float*)malloc(count * sizeof(float));
+    colorB= (float*)malloc(count * sizeof(float));
+    colorA= (float*)malloc(count * sizeof(float));
+    deltaColorR= (float*)malloc(count * sizeof(float));
+    deltaColorG= (float*)malloc(count * sizeof(float));
+    deltaColorB= (float*)malloc(count * sizeof(float));
+    deltaColorA= (float*)malloc(count * sizeof(float));
+    size= (float*)malloc(count * sizeof(float));
+    deltaSize= (float*)malloc(count * sizeof(float));
+    rotation= (float*)malloc(count * sizeof(float));
+    deltaRotation= (float*)malloc(count * sizeof(float));
+    timeToLive= (float*)malloc(count * sizeof(float));
+    mass= (float*)malloc(count * sizeof(float));
+    atlasIndex= (unsigned int*)malloc(count * sizeof(unsigned int));
+    
+    modeA.dirX= (float*)malloc(count * sizeof(float));
+    modeA.dirY= (float*)malloc(count * sizeof(float));
+    modeA.radialAccel= (float*)malloc(count * sizeof(float));
+    modeA.tangentialAccel= (float*)malloc(count * sizeof(float));
+    
+    modeB.angle= (float*)malloc(count * sizeof(float));
+    modeB.degreesPerSecond= (float*)malloc(count * sizeof(float));
+    modeB.deltaRadius= (float*)malloc(count * sizeof(float));
+    modeB.radius= (float*)malloc(count * sizeof(float));
+    
+    return posx && posy && startPosY && startPosX && colorR && colorG && colorB && colorA &&
+    deltaColorR && deltaColorG && deltaColorB && deltaColorA && size && deltaSize &&
+    rotation && deltaRotation && timeToLive && atlasIndex && modeA.dirX && modeA.dirY &&
+    modeA.radialAccel && modeA.tangentialAccel && modeB.angle && modeB.degreesPerSecond &&
+    modeB.deltaRadius && modeB.radius;
 }
 
-// modeB update
-void modeBUpdateSystem(flecs::iter& it, size_t i, flecsPosition& fp, flecsAngle& fa, flecsRadius& fr, flecsYCoordFlipped& fycf)
+void ParticleData::release()
 {
-    fa.angle += fa.degreesPerSecond * it.delta_time();
-    fr.radius += fr.deltaRadius * it.delta_time();
-    fp.position.x = - cosf(fa.angle) * fr.radius;
-    fp.position.y = - sinf(fa.angle) * fr.radius * fycf._yCoordFlipped;
+    CC_SAFE_FREE(posx);
+    CC_SAFE_FREE(posy);
+    CC_SAFE_FREE(startPosX);
+    CC_SAFE_FREE(startPosY);
+    CC_SAFE_FREE(colorR);
+    CC_SAFE_FREE(colorG);
+    CC_SAFE_FREE(colorB);
+    CC_SAFE_FREE(colorA);
+    CC_SAFE_FREE(deltaColorR);
+    CC_SAFE_FREE(deltaColorG);
+    CC_SAFE_FREE(deltaColorB);
+    CC_SAFE_FREE(deltaColorA);
+    CC_SAFE_FREE(size);
+    CC_SAFE_FREE(deltaSize);
+    CC_SAFE_FREE(rotation);
+    CC_SAFE_FREE(deltaRotation);
+    CC_SAFE_FREE(timeToLive);
+    CC_SAFE_FREE(mass);
+    CC_SAFE_FREE(atlasIndex);
+    
+    CC_SAFE_FREE(modeA.dirX);
+    CC_SAFE_FREE(modeA.dirY);
+    CC_SAFE_FREE(modeA.radialAccel);
+    CC_SAFE_FREE(modeA.tangentialAccel);
+    
+    CC_SAFE_FREE(modeB.angle);
+    CC_SAFE_FREE(modeB.degreesPerSecond);
+    CC_SAFE_FREE(modeB.deltaRadius);
+    CC_SAFE_FREE(modeB.radius);
 }
-
-// color, size and rotation update
-void otherUpdateSystem(flecs::iter& it, size_t i, flecsColor& fc, flecsSize& fs, flecsRotation& fr)
-{
-    //color r,g,b,a
-    fc.colorR += fc.deltaColorR * it.delta_time();
-    fc.colorG += fc.deltaColorG * it.delta_time();
-    fc.colorB += fc.deltaColorB * it.delta_time();
-    fc.colorA += fc.deltaColorA * it.delta_time();
-
-    //size
-    fs.size += (fs.deltaSize * it.delta_time());
-    fs.size = MAX(0, fs.size);
-
-    //rotation
-    fr.rotation += fr.deltaRotation * it.delta_time();
-}
-
-// render todo
-//void renderSystem(flecsPosition& fp, flecsStartPosition& fsp, flecsColor& fc, flecsSize&, fs, flecsRotation& fr)
-//{
-//    flecsPositionType *pt = ecs_get(world, ecs_id(flecsPositionType), flecsPositionType);
-//    felcsQuad *qd = ecs_get(world, ecs_id(felcsQuad), felcsQuad);
-//    if (&(pt.positionType) == PositionType::FREE)
-//    {
-//        Vec3 p1(fsp.startPosX, fsp.startPosY, 0); // todo: startPos may not equal to currentPosition(_position)?
-//        Mat4 worldToNodeTM = getWorldToNodeTransform();
-//        worldToNodeTM.transformPoint(&p1);
-//        Vec3 p2;
-//        Vec2 newPos;
-//        float startX = fsp.startPosX;
-//        float startY = fsp.startPosY;
-//        float x = fp.position.x;
-//        float y = fp.position.y;
-//        float s = fs.size;
-//        float r = fr.rotation;
-//    }
-//    else if (&(pt.positionType) == PositionType::RELATIVE)
-//    {
-//    }
-//    else
-//    {
-//    }
-//}
-
-flecs::world* FlecsParticleSystem::GetEcsWorld() const { return ECSWorld; }
-
-void FlecsParticleSystem::initFlecs()
-{
-    // register systems
-//	auto system_Emit = GetEcsWorld()->system
-//		<flecsEmitterInfo, flecsCount>
-//		("Emit System")
-//		.each(emitSystem);
-//
-//	auto system_Spawn = GetEcsWorld()->system
-//		<flecsCount, flecsSystemNotPause, flecsSpawnInfo, flecsPosition>
-//		("Spawn System")
-//		.each(spawnSystem);
-//
-//	auto system_ParticleSystemLife = GetEcsWorld()->system
-//		<flecsSystemLife, flecsEmitterInfo>
-//		("Particle System Life System")
-//		.each(particleSystemLifeSystem);
-
-	auto system_ParticleLife = GetEcsWorld()->system
-		<flecsLife>
-		("Particle Life System")
-		.each(particleLifeSystem);
-
-	auto system_ModeAUpdate = GetEcsWorld()->system
-		<flecsPosition, flecsAccel, flecsDir, flecsYCoordFlipped>
-		("Mode A Update System")
-		.each(modeAUpdateSystem);
-
-	auto system_ModeBUpdate = GetEcsWorld()->system
-		<flecsPosition, flecsAngle, flecsRadius, flecsYCoordFlipped>
-		("Mode B Update System")
-		.each(modeBUpdateSystem);
-
-	auto system_OtherUpdate = GetEcsWorld()->system
-		<flecsColor, flecsSize, flecsRotation>
-		("Other Update System")
-		.each(otherUpdateSystem);
-
-//	auto system_Render = GetEcsWorld()->system
-//		<flecsPosition, flecsStartPosition, flecsColor, flecsSize, flecsRotation>
-//		("Render System")
-//		.each(renderSystem);
-
-//	UE_LOG(LogTemp, Warning, TEXT("All System initialized!"));
-}
-
-bool FlecsParticleSystem::Tick(float DeltaTime) // todo: use Update as name?
-{
-	if (ECSWorld) ECSWorld->progress(DeltaTime);
-	return true;
-}
-
-void FlecsParticleSystem::init()
-{
-//    quadPtr = quad;
-//     if (!ECSWorld)
-//     {
-//         char name[] = { "Particle System Flecs" };
-//         char* argv = name;
-//         ECSWorld = new flecs::world(1, &argv);
-//     }
-//    ECS_COMPONENT(ECSWorld, felcsQuad);
-//    ECS_COMPONENT(ECSWorld, flecsPositionType);
-////    ECS_COMPONENT(ECSWorld, flecsNodePosition);
-//    ecs_set(world, ecs_id(felcsQuad), felcsQuad, {&(quad)});
-//    ecs_set(world, ecs_id(flecsPositionType), flecsPositionType, {&(positionType)});
-////    ecs_set(world, ecs_id(flecsNodePosition), flecsNodePosition, {&(_position)});
-    initFlecs();
-}
-
-void FlecsParticleSystem::release()
-{
-    ECSWorld->release();
-    ECSWorld = nullptr;
-}
-
-FlecsParticleSystem::FlecsParticleSystem() {
-        char name[] = { "Particle System Flecs" };
-        char* argv = name;
-        ECSWorld = new flecs::world(1, &argv);
-}
-
-FlecsParticleSystem::~FlecsParticleSystem()
-{
-    ECSWorld->release();
-    ECSWorld = nullptr;
-}
-
-// delete ParticleData(), ParticleData::init(), ParticleData::release()
 
 Vector<ParticleSystem*> ParticleSystem::__allInstances;
 float ParticleSystem::__totalParticleCountFactor = 1.0f;
 
 ParticleSystem::ParticleSystem()
-: _isBlendAdditive(false)
+: _collisionEnable(false)
+, _mass(0)
+, _massVar(0)
+, _isBlendAdditive(false)
 , _isAutoRemoveOnFinish(false)
 , _plistFile("")
 , _elapsed(0)
@@ -342,7 +229,6 @@ ParticleSystem::ParticleSystem()
 , _yCoordFlipped(1)
 , _positionType(PositionType::FREE)
 , _paused(false)
-//, _quad(nullptr)
 , _sourcePositionCompatible(true) // In the furture this member's default value maybe false or be removed.
 {
     modeA.gravity.setZero();
@@ -359,7 +245,6 @@ ParticleSystem::ParticleSystem()
     modeB.endRadiusVar = 0;            
     modeB.rotatePerSecond = 0;
     modeB.rotatePerSecondVar = 0;
-    flecsParticleSystem = new (std::nothrow) FlecsParticleSystem();
 }
 // implementation ParticleSystem
 
@@ -406,7 +291,6 @@ bool ParticleSystem::init()
 bool ParticleSystem::initWithFile(const std::string& plistFile)
 {
     bool ret = false;
-//    _quad = quad;
     _plistFile = FileUtils::getInstance()->fullPathForFilename(plistFile);
     ValueMap dict = FileUtils::getInstance()->getValueMapFromFile(_plistFile);
 
@@ -438,7 +322,6 @@ bool ParticleSystem::initWithDictionary(ValueMap& dictionary, const std::string&
     unsigned char *buffer = nullptr;
     unsigned char *deflated = nullptr;
     Image *image = nullptr;
-//    _quad = quad;
     do 
     {
         int maxParticles = dictionary["maxParticles"].asInt();
@@ -588,6 +471,14 @@ bool ParticleSystem::initWithDictionary(ValueMap& dictionary, const std::string&
             // emission Rate
             _emissionRate = _totalParticles / _life;
 
+            // collision
+            _collisionEnable = dictionary["collisionEnable"].asBool();
+            if (_collisionEnable)
+            {
+                _mass = dictionary["particleMass"].asFloat();
+                _massVar = dictionary["particleMassVar"].asFloat();
+            }
+
             //don't get the internal texture if a batchNode is used
             if (!_batchNode)
             {
@@ -676,30 +567,22 @@ bool ParticleSystem::initWithDictionary(ValueMap& dictionary, const std::string&
 bool ParticleSystem::initWithTotalParticles(int numberOfParticles)
 {
     _totalParticles = numberOfParticles;
-//    _quad = quad;
     
-//    _particleData.release();
-    flecsParticleSystem->init();
-    flecsParticleSystem->setMaxCount(numberOfParticles);
-    flecs::world* ECSWorld = flecsParticleSystem->GetEcsWorld();
-    if (ECSWorld == nullptr)
+    _particleData.release();
+
+    if( !_particleData.init(_totalParticles) )
     {
-        CCLOG("Particle system: ECSWorld init failed");
+        CCLOG("Particle system: not enough memory");
+        this->release();
         return false;
     }
-//    if( !_particleData.init() )
-//    {
-//        CCLOG("Particle system: not enough memory");
-//        this->release();
-//        return false;
-//    }
     _allocatedParticles = numberOfParticles;
 
-    if (_batchNode) // todo: batchNode
+    if (_batchNode)
     {
         for (int i = 0; i < _totalParticles; i++)
         {
-//            _particleData.atlasIndex[i] = i;
+            _particleData.atlasIndex[i] = i;
         }
     }
     // default, active
@@ -734,142 +617,208 @@ ParticleSystem::~ParticleSystem()
     // Since the scheduler retains the "target (in this case the ParticleSystem)
 	// it is not needed to call "unscheduleUpdate" here. In fact, it will be called in "cleanup"
     //unscheduleUpdate();
-//    _particleData.release();
+    _particleData.release();
     CC_SAFE_RELEASE(_texture);
 }
 
-// oop method
 void ParticleSystem::addParticles(int count)
 {
     if (_paused)
         return;
     uint32_t RANDSEED = rand();
 
-//    int start = _particleCount;
+    int start = _particleCount;
     _particleCount += count;
-
-    for (int i = 0; i < count ; ++i)
+    
+    //life
+    for (int i = start; i < _particleCount ; ++i)
     {
-        // life
         float theLife = _life + _lifeVar * RANDOM_M11(&RANDSEED);
-        theLife = MAX(0, theLife);
+        _particleData.timeToLive[i] = MAX(0, theLife);
+    }
 
-        // position
-        Vec2 position;
-        position.x = _sourcePosition.x + _posVar.x * RANDOM_M11(&RANDSEED);
-        position.y = _sourcePosition.y + _posVar.y * RANDOM_M11(&RANDSEED);
-
-        // color
-        float colorR = clampf( _startColor.r + _startColorVar.r * RANDOM_M11(&RANDSEED) , 0 , 1 ); // todo: check function clampf
-        float colorG = clampf( _startColor.g + _startColorVar.g * RANDOM_M11(&RANDSEED) , 0 , 1 );
-        float colorB = clampf( _startColor.b + _startColorVar.b * RANDOM_M11(&RANDSEED) , 0 , 1 );
-        float colorA = clampf( _startColor.a + _startColorVar.a * RANDOM_M11(&RANDSEED) , 0 , 1 );
-        float deltaColorR = (clampf( _endColor.r + _endColorVar.r * RANDOM_M11(&RANDSEED) , 0 , 1 ) - colorR) / theLife;
-        float deltaColorG = (clampf( _endColor.g + _endColorVar.g * RANDOM_M11(&RANDSEED) , 0 , 1 ) - colorG) / theLife;
-        float deltaColorB = (clampf( _endColor.b + _endColorVar.b * RANDOM_M11(&RANDSEED) , 0 , 1 ) - colorB) / theLife;
-        float deltaColorA = (clampf( _endColor.a + _endColorVar.a * RANDOM_M11(&RANDSEED) , 0 , 1 ) - colorA) / theLife;
-
-        // size
-        float startSize = _startSize + _startSizeVar * RANDOM_M11(&RANDSEED);
-        startSize = MAX(0, startSize);
-        float deltaSize = 0.0f;
-        if (_startSize != _endSize)
+    // mass
+    if (_collisionEnable)
+    {
+        for (int i = start; i < _particleCount ; ++i)
+        {
+            float mass = _mass + _massVar * RANDOM_M11(&RANDSEED);
+            _particleData.mass[i] = MAX(0, mass);
+        }
+    }
+    
+    //position
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.posx[i] = _sourcePosition.x + _posVar.x * RANDOM_M11(&RANDSEED);
+    }
+    
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.posy[i] = _sourcePosition.y + _posVar.y * RANDOM_M11(&RANDSEED);
+    }
+    
+    //color
+#define SET_COLOR(c, b, v)\
+for (int i = start; i < _particleCount; ++i)\
+{\
+c[i] = clampf( b + v * RANDOM_M11(&RANDSEED) , 0 , 1 );\
+}
+    
+    SET_COLOR(_particleData.colorR, _startColor.r, _startColorVar.r);
+    SET_COLOR(_particleData.colorG, _startColor.g, _startColorVar.g);
+    SET_COLOR(_particleData.colorB, _startColor.b, _startColorVar.b);
+    SET_COLOR(_particleData.colorA, _startColor.a, _startColorVar.a);
+    
+    SET_COLOR(_particleData.deltaColorR, _endColor.r, _endColorVar.r);
+    SET_COLOR(_particleData.deltaColorG, _endColor.g, _endColorVar.g);
+    SET_COLOR(_particleData.deltaColorB, _endColor.b, _endColorVar.b);
+    SET_COLOR(_particleData.deltaColorA, _endColor.a, _endColorVar.a);
+    
+#define SET_DELTA_COLOR(c, dc)\
+for (int i = start; i < _particleCount; ++i)\
+{\
+dc[i] = (dc[i] - c[i]) / _particleData.timeToLive[i];\
+}
+    
+    SET_DELTA_COLOR(_particleData.colorR, _particleData.deltaColorR);
+    SET_DELTA_COLOR(_particleData.colorG, _particleData.deltaColorG);
+    SET_DELTA_COLOR(_particleData.colorB, _particleData.deltaColorB);
+    SET_DELTA_COLOR(_particleData.colorA, _particleData.deltaColorA);
+    
+    //size
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.size[i] = _startSize + _startSizeVar * RANDOM_M11(&RANDSEED);
+        _particleData.size[i] = MAX(0, _particleData.size[i]);
+    }
+    
+    if (_endSize != START_SIZE_EQUAL_TO_END_SIZE)
+    {
+        for (int i = start; i < _particleCount; ++i)
         {
             float endSize = _endSize + _endSizeVar * RANDOM_M11(&RANDSEED);
             endSize = MAX(0, endSize);
-            deltaSize = (endSize - startSize) / theLife;
+            _particleData.deltaSize[i] = (endSize - _particleData.size[i]) / _particleData.timeToLive[i];
         }
-
-        // rotation
-        float rotation = _startSpin + _startSpinVar * RANDOM_M11(&RANDSEED);
-        float endRot = _endSpin + _endSpinVar * RANDOM_M11(&RANDSEED);
-        float deltaRotation = (endRot - rotation) / theLife;
-
-        // position
-        Vec2 pos;
-        if (_positionType == PositionType::FREE)
+    }
+    else
+    {
+        for (int i = start; i < _particleCount; ++i)
         {
-            pos = this->convertToWorldSpace(Vec2::ZERO);
+            _particleData.deltaSize[i] = 0.0f;
         }
-        else if (_positionType == PositionType::RELATIVE)
+    }
+    
+    // rotation
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.rotation[i] = _startSpin + _startSpinVar * RANDOM_M11(&RANDSEED);
+    }
+    for (int i = start; i < _particleCount; ++i)
+    {
+        float endA = _endSpin + _endSpinVar * RANDOM_M11(&RANDSEED);
+        _particleData.deltaRotation[i] = (endA - _particleData.rotation[i]) / _particleData.timeToLive[i];
+    }
+    
+    // position
+    Vec2 pos;
+    if (_positionType == PositionType::FREE)
+    {
+        pos = this->convertToWorldSpace(Vec2::ZERO);
+    }
+    else if (_positionType == PositionType::RELATIVE)
+    {
+        pos = _position;
+    }
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.startPosX[i] = pos.x;
+    }
+    for (int i = start; i < _particleCount; ++i)
+    {
+        _particleData.startPosY[i] = pos.y;
+    }
+    
+    // Mode Gravity: A
+    if (_emitterMode == Mode::GRAVITY)
+    {
+        
+        // radial accel
+        for (int i = start; i < _particleCount; ++i)
         {
-            pos = _position;
+            _particleData.modeA.radialAccel[i] = modeA.radialAccel + modeA.radialAccelVar * RANDOM_M11(&RANDSEED);
         }
-        float startPosX = pos.x;
-        float startPosY = pos.y; // todo: check whether there is any influence of changing type from pointer to value
-
-        // ModeA: Gravity
-        float radialAccel, tangentialAccel, dirX, dirY;
-        float radius, deltaRadius, angle, degreesPerSecond;
-        if (_emitterMode == Mode::GRAVITY)
+        
+        // tangential accel
+        for (int i = start; i < _particleCount; ++i)
         {
-            // radial accel
-            radialAccel = modeA.radialAccel + modeA.radialAccelVar * RANDOM_M11(&RANDSEED);
-            // tangential accel
-            tangentialAccel = modeA.tangentialAccel + modeA.tangentialAccelVar * RANDOM_M11(&RANDSEED);
-            // dir
-            if (modeA.rotationIsDir)
-            {
-                float a = CC_DEGREES_TO_RADIANS( _angle + _angleVar * RANDOM_M11(&RANDSEED) );
-                Vec2 v(cosf( a ), sinf( a )); //
-                float s = modeA.speed + modeA.speedVar * RANDOM_M11(&RANDSEED);
-                Vec2 dir = v * s;
-                dirX = dir.x;//v * s ;
-                dirY = dir.y;
-                rotation = -CC_RADIANS_TO_DEGREES(dir.getAngle()); // todo: check function getAngle()
-            }
-            else
+            _particleData.modeA.tangentialAccel[i] = modeA.tangentialAccel + modeA.tangentialAccelVar * RANDOM_M11(&RANDSEED);
+        }
+        
+        // rotation is dir
+        if( modeA.rotationIsDir )
+        {
+            for (int i = start; i < _particleCount; ++i)
             {
                 float a = CC_DEGREES_TO_RADIANS( _angle + _angleVar * RANDOM_M11(&RANDSEED) );
                 Vec2 v(cosf( a ), sinf( a ));
                 float s = modeA.speed + modeA.speedVar * RANDOM_M11(&RANDSEED);
                 Vec2 dir = v * s;
-                dirX = dir.x;//v * s ;
-                dirY = dir.y;
+                _particleData.modeA.dirX[i] = dir.x;//v * s ;
+                _particleData.modeA.dirY[i] = dir.y;
+                _particleData.rotation[i] = -CC_RADIANS_TO_DEGREES(dir.getAngle());
             }
         }
         else
-        {// ModeB: Circular
-            // radius
-            radius = modeB.startRadius + modeB.startRadiusVar * RANDOM_M11(&RANDSEED);
-            deltaRadius = 0.0f;
-            if (modeB.startRadius != modeB.endRadius)
+        {
+            for (int i = start; i < _particleCount; ++i)
             {
-                float endRadius = modeB.endRadius + modeB.endRadiusVar * RANDOM_M11(&RANDSEED);
-                deltaRadius = (endRadius - radius) / theLife;
+                float a = CC_DEGREES_TO_RADIANS( _angle + _angleVar * RANDOM_M11(&RANDSEED) );
+                Vec2 v(cosf( a ), sinf( a ));
+                float s = modeA.speed + modeA.speedVar * RANDOM_M11(&RANDSEED);
+                Vec2 dir = v * s;
+                _particleData.modeA.dirX[i] = dir.x;//v * s ;
+                _particleData.modeA.dirY[i] = dir.y;
             }
-            // angle
-            angle = CC_DEGREES_TO_RADIANS( _angle + _angleVar * RANDOM_M11(&RANDSEED)); // todo: check function CC_DEGREES_TO_RADIANS
-            degreesPerSecond = CC_DEGREES_TO_RADIANS(modeB.rotatePerSecond + modeB.rotatePerSecondVar * RANDOM_M11(&RANDSEED));
+        }
+        
+    }
+    
+    // Mode Radius: B
+    else
+    {
+        //Need to check by Jacky
+        // Set the default diameter of the particle from the source position
+        for (int i = start; i < _particleCount; ++i)
+        {
+            _particleData.modeB.radius[i] = modeB.startRadius + modeB.startRadiusVar * RANDOM_M11(&RANDSEED);
         }
 
-        // add entity
-//        auto parent = it.entity(i);
-        if (_emitterMode == Mode::GRAVITY) // modeA
+        for (int i = start; i < _particleCount; ++i)
         {
-            auto entity = flecsParticleSystem->GetEcsWorld()->entity()
-                .set<flecsLife>({ theLife })
-                .set<flecsPosition>({ position })
-                .set<flecsStartPosition>({ startPosX, startPosY })
-                .set<flecsColor>({ colorR, colorG, colorB, colorA, deltaColorR, deltaColorG, deltaColorB, deltaColorA })
-                .set<flecsSize>({ startSize, deltaSize })
-                .set<flecsRotation>({ rotation, deltaRotation })
-                .set<flecsYCoordFlipped>({ _yCoordFlipped })
-                .set<flecsAccel>({ radialAccel, tangentialAccel, modeA.gravity })
-                .set<flecsDir>({ dirX, dirY });
+            _particleData.modeB.angle[i] = CC_DEGREES_TO_RADIANS( _angle + _angleVar * RANDOM_M11(&RANDSEED));
         }
-        else // modeB
+        
+        for (int i = start; i < _particleCount; ++i)
         {
-            auto entity = flecsParticleSystem->GetEcsWorld()->entity()
-			    .set<flecsLife>({ theLife })
-			    .set<flecsPosition>({ position })
-			    .set<flecsStartPosition>({ startPosX, startPosY })
-			    .set<flecsColor>({ colorR, colorG, colorB, colorA, deltaColorR, deltaColorG, deltaColorB, deltaColorA })
-			    .set<flecsSize>({ startSize, deltaSize })
-			    .set<flecsRotation>({ rotation, deltaRotation })
-			    .set<flecsYCoordFlipped>({ _yCoordFlipped })
-			    .set<flecsRadius>({ radius, deltaRadius })
-			    .set<flecsAngle>({ angle, degreesPerSecond });
+            _particleData.modeB.degreesPerSecond[i] = CC_DEGREES_TO_RADIANS(modeB.rotatePerSecond + modeB.rotatePerSecondVar * RANDOM_M11(&RANDSEED));
+        }
+        
+        if(modeB.endRadius == START_RADIUS_EQUAL_TO_END_RADIUS)
+        {
+            for (int i = start; i < _particleCount; ++i)
+            {
+                _particleData.modeB.deltaRadius[i] = 0.0f;
+            }
+        }
+        else
+        {
+            for (int i = start; i < _particleCount; ++i)
+            {
+                float endRadius = modeB.endRadius + modeB.endRadiusVar * RANDOM_M11(&RANDSEED);
+                _particleData.modeB.deltaRadius[i] = (endRadius - _particleData.modeB.radius[i]) / _particleData.timeToLive[i];
+            }
         }
     }
 }
@@ -923,16 +872,10 @@ void ParticleSystem::resetSystem()
 {
     _isActive = true;
     _elapsed = 0;
-//    for (int i = 0; i < _particleCount; ++i)
-//    {
-//        _particleData.timeToLive[i] = 0.0f;
-//    }
-    // manually iterate entities and reset particles' life
-    auto ECSWorld = flecsParticleSystem->GetEcsWorld();
-    flecs::query<flecsLife> q = ECSWorld->query<flecsLife>();
-    q.each([](flecs::entity e, flecsLife& fl) {
-        fl.life = 0.0f;
-    });
+    for (int i = 0; i < _particleCount; ++i)
+    {
+        _particleData.timeToLive[i] = 0.0f;
+    }
 }
 
 bool ParticleSystem::isFull()
@@ -940,19 +883,133 @@ bool ParticleSystem::isFull()
     return (_particleCount == _totalParticles);
 }
 
+// collision
+void ParticleSystem::collisionSolver(int i, int j, Vec2 wall)
+{
+    uint32_t RANDSEED = rand();
+    float posX1 = _particleData.posx[i];
+    float posY1 = _particleData.posy[i];
+    float r1 = sqrt(_particleData.size[i] * _particleData.size[i] / 2);
+    float posX2, posY2, r2;
+    if (j >= 0)
+    {
+        posX2 = _particleData.posx[j];
+        posY2 = _particleData.posy[j];
+        r2 = sqrt(_particleData.size[j] * _particleData.size[j] / 2);
+    }
+    else
+    {
+        posX2 = wall.x;
+        posY2 = wall.y;
+        r2 = 0;
+    }
+    float distance = sqrt((posX1 - posX2) * (posX1 - posX2) + (posY1 - posY2) * (posY1 - posY2));
+    if (distance <= r1 + r2)
+    {
+        float vx1, vy1, vx2, vy2;
+        particle_point radial1 = {0.0f, 0.0f}, radial2 = {0.0f, 0.0f}, tangential1, tangential2;
+        if (_emitterMode == Mode::GRAVITY)
+        {
+            vx1 = _particleData.modeA.dirX[i];
+            vy1 = _particleData.modeA.dirY[i];
+            if (j >= 0)
+            {
+                vx2 = _particleData.modeA.dirX[j];
+                vy2 = _particleData.modeA.dirY[j];
+            }
+            else
+            {
+                vx2 = 0;
+                vy2 = 0;
+            }
+        }
+        else
+        {
+            if (posX1 || posY1)
+            {
+                normalize_point(posX1, posY1, &radial1);
+            }
+            if (posX2 || posY2)
+            {
+                normalize_point(posX2, posY2, &radial2);
+            }
+            tangential1 = radial1;
+            std::swap(tangential1.x, tangential1.y);
+            tangential2 = radial2;
+            std::swap(tangential2.x, tangential2.y);
+
+            vx1 = _particleData.modeB.deltaRadius[i] * radial1.x - _particleData.modeB.degreesPerSecond[i] * tangential1.x;
+            vy1 = _particleData.modeB.deltaRadius[i] * radial1.y + _particleData.modeB.degreesPerSecond[i] * tangential1.y;
+            if (j >= 0)
+            {
+                vx2 = _particleData.modeB.deltaRadius[j] * radial2.x - _particleData.modeB.degreesPerSecond[j] * tangential2.x;
+                vy2 = _particleData.modeB.deltaRadius[j] * radial2.y + _particleData.modeB.degreesPerSecond[j] * tangential2.y;
+            }
+            else
+            {
+                vx2 = 0;
+                vy2 = 0;
+            }
+        }
+        float k = j >= 0 ? _particleData.mass[j] / _particleData.mass[i] : -1;
+        float a = posX1 == posX2 ? RANDOM_M11(&RANDSEED) : (posY1 - posY2) / (posX1 - posX2);
+
+        float vx1r, vy1r, vx2r, vy2r;
+        if (k == -1)
+        {
+            if (posX1 == posX2)
+            {
+                vx1r = vx1;
+                vy1r = - vy1;
+            }
+            else
+            {
+                vx1r = - vx1;
+                vy1r = vy1;
+            }
+        }
+        else
+        {
+            vx1r = ((1 + a * a - k + a * a * k) * vx1 - 2 * k * a * vy1 + 2 * k * vx2 + 2 * a * k * vy2) / (1 + a * a + k + a * a * k);
+            vy1r = vy1 + a * (vx1r - vx1);
+            vx2r = (vx1 - vx1r) / k + vx2;
+            vy2r = vy2 + a * (vx2r - vx2);
+        }
+
+        if (_emitterMode == Mode::GRAVITY)
+        {
+            _particleData.modeA.dirX[i] = vx1r;
+            _particleData.modeA.dirY[i] = vy1r;
+            if (j >= 0)
+            {
+                _particleData.modeA.dirX[j] = vx2r;
+                _particleData.modeA.dirY[j] = vy2r;
+            }
+        }
+        else
+        {
+            _particleData.modeB.deltaRadius[i] = - vx1r * radial1.x - vy1r * radial1.y;
+            _particleData.modeB.degreesPerSecond[i] = vx1r * tangential1.x - vy1r * tangential1.y;
+            if (j >= 0)
+            {
+                _particleData.modeB.deltaRadius[j] = - vx2r * radial2.x - vy2r * radial2.y;
+                _particleData.modeB.degreesPerSecond[j] = vx2r * tangential2.x - vy2r * tangential2.y;
+            }
+        }
+    }
+}
+
 // ParticleSystem - MainLoop
 void ParticleSystem::update(float dt)
 {
     CC_PROFILER_START_CATEGORY(kProfilerCategoryParticles , "CCParticleSystem - update");
-
+    float deltaT;
+    std::chrono::steady_clock::time_point startUpdate = std::chrono::steady_clock::now(); // lr for debug
     if (_isActive && _emissionRate)
     {
-        // count particles
-        auto ECSWorld = flecsParticleSystem->GetEcsWorld();
-        _particleCount = ECSWorld->count<flecsPosition>();
         float rate = 1.0f / _emissionRate;
         int totalParticles = static_cast<int>(_totalParticles * __totalParticleCountFactor);
-
+        
         //issue #1201, prevent bursts of particles, due to too high emitCounter
         if (_particleCount < totalParticles)
         {
@@ -960,11 +1017,11 @@ void ParticleSystem::update(float dt)
             if (_emitCounter < 0.f)
                 _emitCounter = 0.f;
         }
-
+        
         int emitCount = MIN(totalParticles - _particleCount, _emitCounter / rate);
         addParticles(emitCount);
         _emitCounter -= rate * emitCount;
-
+        
         _elapsed += dt;
         if (_elapsed < 0.f)
             _elapsed = 0.f;
@@ -973,16 +1030,180 @@ void ParticleSystem::update(float dt)
             this->stopSystem();
         }
     }
-
-    // particle update with ECS
-    if (!flecsParticleSystem->Tick(dt))
+    std::chrono::steady_clock::time_point afterEmit = std::chrono::steady_clock::now(); // lr for debug
+    deltaT = std::chrono::duration_cast<std::chrono::microseconds>(afterEmit - startUpdate).count() / 1000.0f;
+    CCLOG("lr debug: delta time at addParticles (ms): %.3f", deltaT);
+    
     {
-        CCLOG("Particle system: ECS Tick failed");
-    }
+        for (int i = 0; i < _particleCount; ++i)
+        {
+            _particleData.timeToLive[i] -= dt;
+        }
+        
+        for (int i = 0; i < _particleCount; ++i)
+        {
+            if (_particleData.timeToLive[i] <= 0.0f)
+            {
+                int j = _particleCount - 1;
+                while (j > 0 && _particleData.timeToLive[j] <= 0)
+                {
+                    _particleCount--;
+                    j--;
+                }
+                _particleData.copyParticle(i, _particleCount - 1);
+                if (_batchNode)
+                {
+                    //disable the switched particle
+                    int currentIndex = _particleData.atlasIndex[i];
+                    _batchNode->disableParticle(_atlasIndex + currentIndex);
+                    //switch indexes
+                    _particleData.atlasIndex[_particleCount - 1] = currentIndex;
+                }
+                --_particleCount;
+                if( _particleCount == 0 && _isAutoRemoveOnFinish )
+                {
+                    this->unscheduleUpdate();
+                    _parent->removeChild(this, true);
+                    return;
+                }
+            }
+        }
 
-    // set quad for render
-    updateParticleQuads();
-    _transformSystemDirty = false;
+        // Perfect Elastic Collision
+        if (_collisionEnable)
+        {
+            for (int i = 0 ; i < _particleCount; ++i)
+            {
+                /** collision between particles **/
+                for (int j = i + 1 ; j < _particleCount; ++j)
+                {
+                    collisionSolver(i, j, Vec2::ZERO);
+                }
+                /** boundary collision **/
+                // Returns visible size of the OpenGL view in points.
+                Size visibleSize = Director::getInstance()->getVisibleSize();
+                // Returns visible origin coordinate of the OpenGL view in points.
+                Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+                Vec2 left(origin.x, _particleData.posy[i]);
+                Vec2 right(origin.x + visibleSize.width, _particleData.posy[i]);
+                Vec2 top(_particleData.posx[i], origin.y + visibleSize.height);
+                Vec2 bottom(_particleData.posx[i], origin.y);
+                collisionSolver(i, -1, left);
+                collisionSolver(i, -1, right);
+                collisionSolver(i, -1, top);
+                collisionSolver(i, -1, bottom);
+            }
+        }
+        
+        if (_emitterMode == Mode::GRAVITY)
+        {
+            for (int i = 0 ; i < _particleCount; ++i)
+            {
+                particle_point tmp, radial = {0.0f, 0.0f}, tangential;
+                
+                // radial acceleration
+                if (_particleData.posx[i] || _particleData.posy[i])
+                {
+                    normalize_point(_particleData.posx[i], _particleData.posy[i], &radial);
+                }
+                tangential = radial;
+                radial.x *= _particleData.modeA.radialAccel[i];
+                radial.y *= _particleData.modeA.radialAccel[i];
+                
+                // tangential acceleration
+                std::swap(tangential.x, tangential.y);
+                tangential.x *= - _particleData.modeA.tangentialAccel[i];
+                tangential.y *= _particleData.modeA.tangentialAccel[i];
+                
+                // (gravity + radial + tangential) * dt
+                tmp.x = radial.x + tangential.x + modeA.gravity.x;
+                tmp.y = radial.y + tangential.y + modeA.gravity.y;
+                tmp.x *= dt;
+                tmp.y *= dt;
+                
+                _particleData.modeA.dirX[i] += tmp.x;
+                _particleData.modeA.dirY[i] += tmp.y;
+                
+                // this is cocos2d-x v3.0
+                // if (_configName.length()>0 && _yCoordFlipped != -1)
+                
+                // this is cocos2d-x v3.0
+                tmp.x = _particleData.modeA.dirX[i] * dt * _yCoordFlipped;
+                tmp.y = _particleData.modeA.dirY[i] * dt * _yCoordFlipped;
+                _particleData.posx[i] += tmp.x;
+                _particleData.posy[i] += tmp.y;
+            }
+        }
+        else
+        {
+            //Why use so many for-loop separately instead of putting them together?
+            //When the processor needs to read from or write to a location in memory,
+            //it first checks whether a copy of that data is in the cache.
+            //And every property's memory of the particle system is continuous,
+            //for the purpose of improving cache hit rate, we should process only one property in one for-loop AFAP.
+            //It was proved to be effective especially for low-end machine. 
+            for (int i = 0; i < _particleCount; ++i)
+            {
+                _particleData.modeB.angle[i] += _particleData.modeB.degreesPerSecond[i] * dt;
+            }
+            
+            for (int i = 0; i < _particleCount; ++i)
+            {
+                _particleData.modeB.radius[i] += _particleData.modeB.deltaRadius[i] * dt;
+            }
+            
+            for (int i = 0; i < _particleCount; ++i)
+            {
+                _particleData.posx[i] = - cosf(_particleData.modeB.angle[i]) * _particleData.modeB.radius[i];
+            }
+            for (int i = 0; i < _particleCount; ++i)
+            {
+                _particleData.posy[i] = - sinf(_particleData.modeB.angle[i]) * _particleData.modeB.radius[i] * _yCoordFlipped;
+            }
+        }
+        
+        //color r,g,b,a
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.colorR[i] += _particleData.deltaColorR[i] * dt;
+        }
+        
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.colorG[i] += _particleData.deltaColorG[i] * dt;
+        }
+        
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.colorB[i] += _particleData.deltaColorB[i] * dt;
+        }
+        
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.colorA[i] += _particleData.deltaColorA[i] * dt;
+        }
+        //size
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.size[i] += (_particleData.deltaSize[i] * dt);
+            _particleData.size[i] = MAX(0, _particleData.size[i]);
+        }
+        //angle
+        for (int i = 0 ; i < _particleCount; ++i)
+        {
+            _particleData.rotation[i] += _particleData.deltaRotation[i] * dt;
+        }
+        std::chrono::steady_clock::time_point afterECS = std::chrono::steady_clock::now(); // lr for debug
+        deltaT = std::chrono::duration_cast<std::chrono::microseconds>(afterECS - afterEmit).count() / 1000.0f;
+        CCLOG("lr debug: delta time at update particles (ms): %.3f", deltaT);
+        
+        updateParticleQuads();
+        _transformSystemDirty = false;
+        std::chrono::steady_clock::time_point afterQuad = std::chrono::steady_clock::now(); // lr for debug
+        deltaT = std::chrono::duration_cast<std::chrono::microseconds>(afterQuad - afterECS).count() / 1000.0f;
+        CCLOG("lr debug: delta time at update quad (ms): %.3f", deltaT);
+    }
 
     // only update gl buffer when visible
     if (_visible && ! _batchNode)
@@ -992,8 +1213,6 @@ void ParticleSystem::update(float dt)
 
     CC_PROFILER_STOP_CATEGORY(kProfilerCategoryParticles , "CCParticleSystem - update");
 }
-
-// oop render system
 
 void ParticleSystem::updateWithNoTime(void)
 {
@@ -1293,13 +1512,13 @@ void ParticleSystem::setBatchNode(ParticleBatchNode* batchNode)
 {
     if( _batchNode != batchNode ) {
 
-//        _batchNode = batchNode; // weak reference
-        _batchNode = nullptr; // todo
+        _batchNode = batchNode; // weak reference
+
         if( batchNode ) {
             //each particle needs a unique index
             for (int i = 0; i < _totalParticles; i++)
             {
-//                _particleData.atlasIndex[i] = i;
+                _particleData.atlasIndex[i] = i;
             }
         }
     }

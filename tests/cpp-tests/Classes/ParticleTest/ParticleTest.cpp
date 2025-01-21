@@ -1054,6 +1054,7 @@ ParticleTests::ParticleTests()
     addTestCase("lines", [](){return DemoParticleFromFile::create("lines"); });
     addTestCase("ButterFly", [](){return DemoParticleFromFile::create("ButterFly"); });
     addTestCase("ButterFlyYFlipped", [](){return DemoParticleFromFile::create("ButterFlyYFlipped"); });
+    addTestCase("ParticleCollision", [](){return DemoParticleFromFile::create("ParticleCollision"); }); // Perfect Elastic Collision
     ADD_TEST_CASE(RadiusMode1);
     ADD_TEST_CASE(RadiusMode2);
 //    ADD_TEST_CASE(Issue704);
@@ -1071,7 +1072,7 @@ ParticleTests::ParticleTests()
 //    ADD_TEST_CASE(ParticleVisibleTest);
 //    ADD_TEST_CASE(ParticleResetTotalParticles);
 //
-//    ADD_TEST_CASE(ParticleIssue12310);
+   ADD_TEST_CASE(ParticleIssue12310);
 //    ADD_TEST_CASE(ParticleSpriteFrame);
 }
 
@@ -2058,6 +2059,7 @@ void ParticleIssue12310::onEnter()
 {
     ParticleDemo::onEnter();
 
+    CCLOG("lr debug: start 12310."); // lr for debug
     _color->setColor(Color3B::BLACK);
     removeChild(_background, true);
     _background = nullptr;

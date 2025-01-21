@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "base/CCProtocols.h"
 #include "2d/CCNode.h"
 #include "base/CCValue.h"
-#include "2d/flecs.h"
 
 NS_CC_BEGIN
 
@@ -52,109 +51,97 @@ struct particle_point
     float y;
 };
 
-/* Components of basic attributes of particles */
-// Used as positions of particles.
-struct flecsPosition
+class CC_DLL ParticleData
 {
-    Vec2 position;
+public:
+    float* posx;
+    float* posy;
+    float* startPosX;
+    float* startPosY;
+
+    float* colorR;
+    float* colorG;
+    float* colorB;
+    float* colorA;
+    
+    float* deltaColorR;
+    float* deltaColorG;
+    float* deltaColorB;
+    float* deltaColorA;
+    
+    float* size;
+    float* deltaSize;
+    float* rotation;
+    float* deltaRotation;
+    float* timeToLive;
+    float* mass;
+    unsigned int* atlasIndex;
+    
+    //! Mode A: gravity, direction, radial accel, tangential accel
+    struct{
+        float* dirX;
+        float* dirY;
+        float* radialAccel;
+        float* tangentialAccel;
+    } modeA;
+    
+    //! Mode B: radius mode
+    struct{
+        float* angle;
+        float* degreesPerSecond;
+        float* radius;
+        float* deltaRadius;
+    } modeB;
+    
+    unsigned int maxCount;
+    ParticleData();
+    bool init(int count);
+    void release();
+    unsigned int getMaxCount() { return maxCount; }
+    
+    void copyParticle(int p1, int p2)
+    {
+        posx[p1] = posx[p2];
+        posy[p1] = posy[p2];
+        startPosX[p1] = startPosX[p2];
+        startPosY[p1] = startPosY[p2];
+        
+        colorR[p1] = colorR[p2];
+        colorG[p1] = colorG[p2];
+        colorB[p1] = colorB[p2];
+        colorA[p1] = colorA[p2];
+        
+        deltaColorR[p1] = deltaColorR[p2];
+        deltaColorG[p1] = deltaColorG[p2];
+        deltaColorB[p1] = deltaColorB[p2];
+        deltaColorA[p1] = deltaColorA[p2];
+        
+        size[p1] = size[p2];
+        deltaSize[p1] = deltaSize[p2];
+        
+        rotation[p1] = rotation[p2];
+        deltaRotation[p1] = deltaRotation[p2];
+        
+        timeToLive[p1] = timeToLive[p2];
+
+        mass[p1] = mass[p2];
+        
+        atlasIndex[p1] = atlasIndex[p2];
+        
+        modeA.dirX[p1] = modeA.dirX[p2];
+        modeA.dirY[p1] = modeA.dirY[p2];
+        modeA.radialAccel[p1] = modeA.radialAccel[p2];
+        modeA.tangentialAccel[p1] = modeA.tangentialAccel[p2];
+        
+        modeB.angle[p1] = modeB.angle[p2];
+        modeB.degreesPerSecond[p1] = modeB.degreesPerSecond[p2];
+        modeB.radius[p1] = modeB.radius[p2];
+        modeB.deltaRadius[p1] = modeB.deltaRadius[p2];
+        
+    }
 };
 
-struct flecsStartPosition
-{
-    float startPosX;
-    float startPosY;
-};
 
-// Used as colors of particles.
-struct flecsColor
-{
-    float colorR;
-    float colorG;
-    float colorB;
-    float colorA;
-    float deltaColorR;
-    float deltaColorG;
-    float deltaColorB;
-    float deltaColorA;
-};
-
-// Used as sizes of particles.
-struct flecsSize
-{
-    float size;
-    float deltaSize;
-};
-
-struct flecsRotation
-{
-    float rotation;
-    float deltaRotation;
-};
-
-// Used as angles of particles.
-struct flecsAngle
-{
-    float angle;
-    float degreesPerSecond;
-};
-
-// Used as life of particles and emitters, life in emitters to spawn particles.
-struct flecsLife
-{
-    float life;
-};
-
-// Used as radialAccel, tangentialAccel in modeA.
-struct flecsAccel
-{
-    float radialAccel;
-    float tangentialAccel;
-    Vec2 gravity;
-};
-
-struct flecsYCoordFlipped
-{
-    int _yCoordFlipped;
-};
-
-// Used as radius in  modeB.
-struct flecsRadius
-{
-    float radius;
-    float deltaRadius;
-};
-
-struct flecsDir
-{
-    float dirX;
-    float dirY;
-};
-
-// Used as _particleCount of emitters.
-struct flecsCount
-{
-    int particleCount;
-    int emitCount;
-};
-
-//// global component
-//struct flecsPositionType
-//{
-//    PositionType* positionType;
-//};
-//
-//struct felcsQuad
-//{
-//    V3F_C4B_T2F_Quad* quad;
-//};
-
-//struct flecsNodePosition
-//{
-//    Vec2* nodePosition;
-//};
-
-// delete class ParticleData
-//class ParticleData;
 
 //typedef void (*CC_UPDATE_PARTICLE_IMP)(id, SEL, tParticle*, Vec2);
 
@@ -210,25 +197,6 @@ emitter.startSpin = 0;
 #undef RELATIVE
 #endif
 #endif
-
-class CC_DLL FlecsParticleSystem
-{
-public:
-    void initFlecs();
-    bool Tick(float DeltaTime);
-    FlecsParticleSystem();
-    ~FlecsParticleSystem();
-    void init();
-    flecs::world* GetEcsWorld() const;
-    void release();
-    void setMaxCount(unsigned int num) {maxCount = num;};
-    unsigned int getMaxCount() {return maxCount;};
-protected:
-    flecs::world* ECSWorld;
-    unsigned int maxCount;
-//    V3F_C4B_T2F_Quad* quadPtr = nullptr;
-//    int positionType;
-};
 
 class CC_DLL ParticleSystem : public Node, public TextureProtocol, public PlayableProtocol
 {
@@ -856,6 +824,9 @@ CC_CONSTRUCTOR_ACCESS:
     /* UnPause the emissions*/
     virtual void resumeEmissions();
 
+    /* Collision solver */
+    void collisionSolver(int i, int j, Vec2 wall);
+
 protected:
     virtual void updateBlendFunc();
     
@@ -865,6 +836,13 @@ private:
     static void setTotalParticleCountFactor(float factor);
     
 protected:
+
+    /* whether or not the particles are colliding*/
+    bool _collisionEnable;
+
+    float _mass;
+
+    float _massVar;
 
     /** whether or not the particles are using blend additive.
      If enabled, the following blending function will be used.
@@ -923,9 +901,7 @@ protected:
     } modeB;
     
     //particle data
-//    ParticleData _particleData;
-    // flecs system
-    FlecsParticleSystem* flecsParticleSystem;
+    ParticleData _particleData;
 
     //Emitter name
     std::string _configName;

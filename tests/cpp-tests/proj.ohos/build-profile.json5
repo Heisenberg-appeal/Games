@@ -13,13 +13,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_xG6Zh4bnh2Vii2RQNtrzEnmVWc_huS8xYh5Nd8ODSok=.cer",
-          "storePassword": "0000001BE7E4E773064BE237A95758066922E145BD1533FCABB787A89D1590040C2898308EB3E0F6CEE2DA",
+          "certpath": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_RfYhxw-19wcciDWIj9piHpCHnLFcof39ViW8sicA6_I=.cer",
+          "storePassword": "0000001BA25C91351483EEA4EBD0AF77763310579B77F69E244211CB63426AC88638B3F8EC2324FABA21B6",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B2DA1439D7228AEE19DCD016EBCE1C248D89A1F750BC304B3D40D4FFD998A037B874370234B9BE7",
-          "profile": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_xG6Zh4bnh2Vii2RQNtrzEnmVWc_huS8xYh5Nd8ODSok=.p7b",
+          "keyPassword": "0000001BFB0CCA7F9DADF00D30B0415B17E9EBC61211FF4B31D87DFF57FD345841CB5BA7344869D37A867C",
+          "profile": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_RfYhxw-19wcciDWIj9piHpCHnLFcof39ViW8sicA6_I=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_xG6Zh4bnh2Vii2RQNtrzEnmVWc_huS8xYh5Nd8ODSok=.p12"
+          "storeFile": "C:\\Users\\luorui\\.ohos\\config\\default_proj.ohos_RfYhxw-19wcciDWIj9piHpCHnLFcof39ViW8sicA6_I=.p12"
         }
       }
     ]
