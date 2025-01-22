@@ -1005,6 +1005,55 @@ void ParticleSystem::collisionSolver(int i, int j, Vec2 wall)
     }
 }
 
+
+
+
+// collision
+void ParticleSystem::collisionSolverlzl()
+{
+    float* collionChunkArrayBaseAddress = (float *)_particleData.collisionInfo;
+
+    for(int particleAOffset = 0; particleAOffset < _particleCount * 8; particleAOffset+= 8) {
+        for(int particleBOffset = particleAOffset + 8; particleBOffset < _particleCount * 8; particleBOffset+= 8) {
+            float posX1 = *(collionChunkArrayBaseAddress + particleAOffset);
+            float posY1 = *(collionChunkArrayBaseAddress + particleAOffset + 1);
+            float size1 = *(collionChunkArrayBaseAddress + particleAOffset + 2);
+            float posX2 = *(collionChunkArrayBaseAddress + particleBOffset);
+            float posY2 = *(collionChunkArrayBaseAddress + particleBOffset + 1);
+            float size2 = *(collionChunkArrayBaseAddress + particleBOffset + 2);
+
+            float distance = sqrt((posX1 - posX2) * (posX1 - posX2) + (posY1 - posY2) * (posY1 - posY2));
+            if (distance <= (size1 + size2) * 0.707)
+            {
+
+                float vx1 = *(collionChunkArrayBaseAddress + particleAOffset + 3);
+                float vy1 = *(collionChunkArrayBaseAddress + particleAOffset + 4);
+                float degreesPerSecond1 = *(collionChunkArrayBaseAddress + particleAOffset + 5);
+                float deltaRadius1 = *(collionChunkArrayBaseAddress + particleAOffset + 6);
+                float mass1 = *(collionChunkArrayBaseAddress + particleAOffset + 7);
+
+                float vx2 = *(collionChunkArrayBaseAddress + particleBOffset + 3);
+                float vy2 = *(collionChunkArrayBaseAddress + particleBOffset + 4);
+                float degreesPerSecond2 = *(collionChunkArrayBaseAddress + particleBOffset + 5);
+                float deltaRadius2 = *(collionChunkArrayBaseAddress + particleBOffset + 6);
+                float mass2 = *(collionChunkArrayBaseAddress + particleBOffset + 7);
+                uint32_t RANDSEED = rand();
+                float k = mass2 / mass1;
+                float a = posX1 == posX2 ? RANDOM_M11(&RANDSEED) : (posY1 - posY2) / (posX1 - posX2);
+                float vx1r = ((1 + a * a - k + a * a * k) * vx1 - 2 * k * a * vy1 + 2 * k * vx2 + 2 * a * k * vy2) / (1 + a * a + k + a * a * k);
+                float vy1r = vy1 + a * (vx1r - vx1);
+                float vx2r = (vx1 - vx1r) / k + vx2;
+                float vy2r = vy2 + a * (vx2r - vx2);
+
+                *(collionChunkArrayBaseAddress + particleAOffset + 3) = vx1r;
+                *(collionChunkArrayBaseAddress + particleAOffset + 4) = vy1r;
+                *(collionChunkArrayBaseAddress + particleBOffset + 3) = vx2r;
+                *(collionChunkArrayBaseAddress + particleBOffset + 4) = vy2r;
+            }
+        }
+    }
+}
+
 // ParticleSystem - MainLoop
 void ParticleSystem::update(float dt)
 {
@@ -1078,28 +1127,8 @@ void ParticleSystem::update(float dt)
         // Perfect Elastic Collision
         if (_collisionEnable)
         {
-            for (int i = 0 ; i < _particleCount; ++i)
-            {
-                /** collision between particles **/
-                for (int j = i + 1 ; j < _particleCount; ++j)
-                {
-                    collisionSolver(i, j, Vec2::ZERO);
-                }
-                /** boundary collision **/
-                // Returns visible size of the OpenGL view in points.
-                Size visibleSize = Director::getInstance()->getVisibleSize();
-                // Returns visible origin coordinate of the OpenGL view in points.
-                Vec2 origin = Director::getInstance()->getVisibleOrigin();
+            collisionSolverlzl();
 
-                Vec2 left(origin.x, _particleData.collisionInfo[i].posy);
-                Vec2 right(origin.x + visibleSize.width, _particleData.collisionInfo[i].posy);
-                Vec2 top(_particleData.collisionInfo[i].posx, origin.y + visibleSize.height);
-                Vec2 bottom(_particleData.collisionInfo[i].posx, origin.y);
-                collisionSolver(i, -1, left);
-                collisionSolver(i, -1, right);
-                collisionSolver(i, -1, top);
-                collisionSolver(i, -1, bottom);
-            }
         }
         
         if (_emitterMode == Mode::GRAVITY)

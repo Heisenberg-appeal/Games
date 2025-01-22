@@ -840,7 +840,7 @@ CC_CONSTRUCTOR_ACCESS:
 
     /* Collision solver */
     void collisionSolver(int i, int j, Vec2 wall);
-
+    void collisionSolverlzl();
 protected:
     virtual void updateBlendFunc();
     
